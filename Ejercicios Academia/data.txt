@@ -1,0 +1,4 @@
+Title: Manzana, Price: 5.0
+Title: Pera, Price: 10.0
+Title: Naranja, Price: 7.0
+Title: Mandarina, Price: 8.0
