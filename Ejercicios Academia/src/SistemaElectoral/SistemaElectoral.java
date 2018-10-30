@@ -3,6 +3,7 @@ package SistemaElectoral;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
@@ -14,7 +15,8 @@ public class SistemaElectoral {
 	}
 	
 	public void Votacion() {
-		ArrayList<String> nombres = new ArrayList<String>();
+		//Creamos un arrayList y añadimos los nombres. 
+		List <String> nombres = new ArrayList<String>();
 		nombres.add("Luis");
 		nombres.add("Maria");
 		nombres.add("Andoni");
@@ -29,23 +31,28 @@ public class SistemaElectoral {
 		nombres.add("Elena");
 		nombres.add("Elena");
 		
-		LinkedList<String> linkedList = new LinkedList<String>();
+		//Creamos un linkedList de Strings y añadimos los nombres del anterior arrayList.
+		List <String> linkedList = new LinkedList<String>();
 		for (String nombre : nombres) {
 			linkedList.add(nombre);
 		}
 		
-		//fallo en linkedList: no es -1, si se pone -1 no coge a las dos Elenas.
+		//Fallo!! en linkedList: no es -1, si se pone -1 no coge a los dos Elena.
+		//Creamos un arrayList nuevo para guardar el linkedList pero esta vez estará invertido.
 		ArrayList<String> arrayListInvertido = new ArrayList<String>();
 		ListIterator<String> listIterator = linkedList.listIterator(linkedList.size());
 		while (listIterator.hasPrevious() ) {
 			arrayListInvertido.add(listIterator.previous());
 		}
 		
+		//Creamos un hashSet y añadimos los nombres del arrayList invertido.
 		Set<CuentaNombres> cuentaNombres = new HashSet<>();
 		for (String nombre : arrayListInvertido) {
 			cuentaNombres.add(new CuentaNombres(nombre, 0));
 		}
 		
+		//Comprobamos si existe el nombre y en caso de existir se le suma los 
+		//votos correspondientes.
 		for (CuentaNombres nombreHash : cuentaNombres) {
 			int votos = 0;
 			for (String nombreList : arrayListInvertido) {
@@ -53,16 +60,17 @@ public class SistemaElectoral {
 					votos ++;
 				}
 			}
-			
-			nombreHash.setVotos(votos);
-			
+		
+		//Se actualiza el HashSet con los votos correspondientes de cada uno de los nombres.
+		nombreHash.setVotos(votos);
+		
+			//Comprobar si tienen más de un voto y si es asi ponerlo, si no tienen 
+			//más de uno poner 0.
 			if (nombreHash.getVotos() > 1){
 				nombreHash.setVotos(votos);
 			} else {
 				nombreHash.setVotos(0);
-			}
-			
-			
+			}	
 		}
 		
 		System.out.println(cuentaNombres);
@@ -94,9 +102,10 @@ public class SistemaElectoral {
 		
 		@Override
 		public String toString() {
-			return "Nombre: " + nombre + ", Votos: " + votos + ";" + "\n";
+			return "Nombre: " + nombre + ", Votos: " + votos + ";";
 		}
 		
+		//Creamos el metodo equals.
 		public boolean equals (Object obj) {
 			if (obj instanceof CuentaNombres) {
 				CuentaNombres cn = (CuentaNombres) obj;
