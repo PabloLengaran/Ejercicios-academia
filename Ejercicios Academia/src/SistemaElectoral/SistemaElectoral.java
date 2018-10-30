@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class SistemaElectoral {
 	
@@ -64,20 +65,19 @@ public class SistemaElectoral {
 		
 		//Se actualiza el HashSet con los votos correspondientes de cada uno de los nombres.
 		nombreHash.setVotos(votos);
-		
-			//Comprobar si tienen más de un voto y si es asi ponerlo, si no tienen 
-			//más de uno poner 0.
-			if (nombreHash.getVotos() > 1){
-				nombreHash.setVotos(votos);
-			} else {
-				nombreHash.setVotos(0);
-			}	
+			
 		}
-		
 		System.out.println(cuentaNombres);
+		
+		//Creamos un TreeSet y añadimos todos los nombres y votos con el metódo .addAll y lo sacamos por consola.
+		TreeSet<CuentaNombres> treeCuentaNombres = new TreeSet<>();
+		treeCuentaNombres.addAll(cuentaNombres);
+		for (CuentaNombres treeSet : treeCuentaNombres) {
+			System.out.println(treeSet.nombre + ": " + treeSet.votos);
+		}
 	}
 	
-	private class CuentaNombres{
+	private class CuentaNombres implements Comparable<CuentaNombres>{
 		
 		private String nombre;
 		private int votos;
@@ -120,5 +120,23 @@ public class SistemaElectoral {
 			// TODO Auto-generated method stub
 			return nombre.hashCode();
 		}
+		
+		//Implementamos la interfaz Comparable y realizamos los diferentes casos que pueden ocurrir, teniendo 
+		//en cuenta los votos y en caso de tener los mismos votos se ordenan de forma alfabetica.
+		
+		@Override
+		public int compareTo(CuentaNombres o) {
+			// TODO Auto-generated method stub
+			if (votos > o.votos) {
+				return -1;
+			} else if (votos < o.votos){
+				return 1;
+			}else if (votos == o.votos){
+				return nombre.compareTo(o.nombre);
+			} else {
+				return 0;
+			}
+		}
+		
 	}
 }
