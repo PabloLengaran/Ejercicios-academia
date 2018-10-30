@@ -38,7 +38,8 @@ public class SistemaElectoral {
 		}
 		
 		//Fallo!! en linkedList: no es -1, si se pone -1 no coge a los dos Elena.
-		//Creamos un arrayList nuevo para guardar el linkedList pero esta vez estará invertido.
+		//Creamos un arrayList nuevo para guardar el linkedList pero esta vez estará invertido,
+		//para ello utilizaremos el ListIterator.
 		ArrayList<String> arrayListInvertido = new ArrayList<String>();
 		ListIterator<String> listIterator = linkedList.listIterator(linkedList.size());
 		while (listIterator.hasPrevious() ) {
