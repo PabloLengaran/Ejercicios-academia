@@ -1,5 +1,8 @@
 package SistemaElectoral;
 
+
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -7,6 +10,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 import java.util.TreeSet;
+
+
 
 public class SistemaElectoral {
 	
@@ -75,6 +80,15 @@ public class SistemaElectoral {
 		for (CuentaNombres treeSet : treeCuentaNombres) {
 			System.out.println(treeSet.nombre + ": " + treeSet.votos);
 		}
+		
+		//utilizar Bases de Datos.
+		Connection connection = BD.initBD("Elecciones");
+		Statement statement = BD.usarBD(connection);
+		for (CuentaNombres treeSet : treeCuentaNombres) {
+			BD.eleccionesInsert(statement, treeSet.nombre, treeSet.votos);
+		}
+		BD.cerrarBD(connection, statement);
+		
 	}
 	
 	private class CuentaNombres implements Comparable<CuentaNombres>{
